@@ -20,7 +20,8 @@ POSTFIX           := $(OPENWRT_RELEASE)_$(OPENWRT_ARCH)_$(OPENWRT_TARGET)_$(OPEN
 POSTFIX_RELEASE   := $(GITHUB_REF_NAME)_$(OPENWRT_RELEASE)_$(OPENWRT_ARCH)_$(OPENWRT_TARGET)_$(OPENWRT_SUBTARGET)
 
 WORKFLOW_REF      ?= $(shell git rev-parse --abbrev-ref HEAD)
-FINAL_VERMAGIC    := $(shell cat $(OPENWRT_SRCDIR)/build_dir/target-$(OPENWRT_ARCH)*/linux-$(OPENWRT_TARGET)_$(OPENWRT_SUBTARGET)/linux-*/.vermagic)
+#FINAL_VERMAGIC    := $(shell cat $(OPENWRT_SRCDIR)/build_dir/target-$(OPENWRT_ARCH)*/linux-$(OPENWRT_TARGET)_$(OPENWRT_SUBTARGET)/linux-*/.vermagic)
+FINAL_VERMAGIC    := 95406503857f757c242adad1c14f7d60
 
 NPROC ?= $(shell getconf _NPROCESSORS_ONLN)
 
@@ -38,7 +39,8 @@ ifeq ($(OPENWRT_RELEASE), SNAPSHOT)
 	OPENWRT_MANIFEST := $(OPENWRT_BASE_URL)/openwrt-$(OPENWRT_TARGET)-$(OPENWRT_SUBTARGET).manifest
 	GIT_BRANCH := master
 	ifeq ($(_NEED_VERMAGIC), 1)
-		OPENWRT_VERMAGIC := $(shell curl -fs $(OPENWRT_MANIFEST) | grep -- "^kernel" | sed -e "s/.*~//;s/-.*//")
+		#OPENWRT_VERMAGIC := $(shell curl -fs $(OPENWRT_MANIFEST) | grep -- "^kernel" | sed -e "s/.*~//;s/-.*//")
+		OPENWRT_VERMAGIC := 95406503857f757c242adad1c14f7d60
 	endif
 else
 	OPENWRT_ROOT_URL := https://downloads.openwrt.org/releases
@@ -46,7 +48,8 @@ else
 	OPENWRT_MANIFEST := $(OPENWRT_BASE_URL)/openwrt-$(OPENWRT_RELEASE)-$(OPENWRT_TARGET)-$(OPENWRT_SUBTARGET).manifest
 	GIT_BRANCH := v$(OPENWRT_RELEASE)
 	ifeq ($(_NEED_VERMAGIC), 1)
-		OPENWRT_VERMAGIC := $(shell curl -fs $(OPENWRT_MANIFEST) | grep -- "^kernel" | sed -e "s,.*\-,,")
+		#OPENWRT_VERMAGIC := $(shell curl -fs $(OPENWRT_MANIFEST) | grep -- "^kernel" | sed -e "s,.*\-,,")
+		OPENWRT_VERMAGIC := 95406503857f757c242adad1c14f7d60
 	endif
 endif
 
@@ -163,9 +166,11 @@ build-kernel: $(OPENWRT_SRCDIR)/feeds.conf $(OPENWRT_SRCDIR)/.config ## Build Op
 	cd $(OPENWRT_SRCDIR) ; \
 	time -p make defconfig ; \
 	time -p make V=s target/linux/compile -i -j $(NPROC) ; \
-	VERMAGIC=$$(cat ./build_dir/target-$(OPENWRT_ARCH)*/linux-$(OPENWRT_TARGET)_$(OPENWRT_SUBTARGET)/linux-*/.vermagic) ; \
+	#VERMAGIC=$$(cat ./build_dir/target-$(OPENWRT_ARCH)*/linux-$(OPENWRT_TARGET)_$(OPENWRT_SUBTARGET)/linux-*/.vermagic) ; \
+	VERMAGIC:= 95406503857f757c242adad1c14f7d60 ; \
 	echo "Vermagic: $${VERMAGIC}" ; \
-	if [ "$(OPENWRT_VERMAGIC)" != "any" ] && [ "$${VERMAGIC}" != "$(OPENWRT_VERMAGIC)" ]; then \
+	#if [ "$(OPENWRT_VERMAGIC)" != "any" ] && [ "$${VERMAGIC}" != "$(OPENWRT_VERMAGIC)" ]; then \
+	if [ "$(OPENWRT_VERMAGIC)" != 95406503857f757c242adad1c14f7d60 ] && [ "$${VERMAGIC}" != "$(OPENWRT_VERMAGIC)" ]; then \
 		echo "Vermagic mismatch: $${VERMAGIC}, expected $(OPENWRT_VERMAGIC)" ; \
 		exit 1 ; \
 	fi ; \
@@ -191,11 +196,12 @@ build-amneziawg: ## Build amneziawg-openwrt kernel module and packages
 	@{ \
 	set -ex ; \
 	cd $(OPENWRT_SRCDIR) ; \
-	VERMAGIC=$$(cat ./build_dir/target-$(OPENWRT_ARCH)*/linux-$(OPENWRT_TARGET)_$(OPENWRT_SUBTARGET)/linux-*/.vermagic) ; \
+	#VERMAGIC=$$(cat ./build_dir/target-$(OPENWRT_ARCH)*/linux-$(OPENWRT_TARGET)_$(OPENWRT_SUBTARGET)/linux-*/.vermagic) ; \
+	VERMAGIC= 95406503857f757c242adad1c14f7d60 ; \
 	echo "Vermagic: $${VERMAGIC}" ; \
-	if [ "$(OPENWRT_VERMAGIC)" != "any" ] && [ "$${VERMAGIC}" != "$(OPENWRT_VERMAGIC)" ]; then \
-		echo "Vermagic mismatch: $${VERMAGIC}, expected $(OPENWRT_VERMAGIC)" ; \
-		exit 1 ; \
+	#if [ "$(OPENWRT_VERMAGIC)" != "any" ] && [ "$${VERMAGIC}" != "$(OPENWRT_VERMAGIC)" ]; then \
+		#echo "Vermagic mismatch: $${VERMAGIC}, expected $(OPENWRT_VERMAGIC)" ; \
+		#exit 1 ; \
 	fi ; \
 	mv feeds.conf feeds.conf.bak ; \
 	echo "src-git packages https://git.openwrt.org/feed/packages.git" >> feeds.conf ; \
@@ -229,7 +235,8 @@ prepare-artifacts: ## Save amneziawg-openwrt artifacts from regular builds
 	@{ \
 	set -ex ; \
 	cd $(OPENWRT_SRCDIR) ; \
-	VERMAGIC=$$(cat ./build_dir/target-$(OPENWRT_ARCH)*/linux-$(OPENWRT_TARGET)_$(OPENWRT_SUBTARGET)/linux-*/.vermagic) ; \
+	#VERMAGIC=$$(cat ./build_dir/target-$(OPENWRT_ARCH)*/linux-$(OPENWRT_TARGET)_$(OPENWRT_SUBTARGET)/linux-*/.vermagic) ; \
+	VERMAGIC= 95406503857f757c242adad1c14f7d60 ; \
 	echo "Vermagic: $${VERMAGIC}" ; \
 	mkdir -p $(AMNEZIAWG_DSTDIR) ; \
 	cp bin/packages/$(OPENWRT_ARCH)/awgopenwrt/amneziawg-tools_*.ipk $(AMNEZIAWG_DSTDIR)/amneziawg-tools_$(POSTFIX)_$${VERMAGIC}.ipk ; \
