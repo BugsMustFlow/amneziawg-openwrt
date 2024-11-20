@@ -40,14 +40,16 @@ jobs:
             pkgarch: ${{ inputs.openwrt_arch }}
             target: ${{ inputs.openwrt_target }}
             subtarget: ${{ inputs.openwrt_subtarget }}
-            vermagic: ${{ inputs.openwrt_vermagic }}
+            #vermagic: ${{ inputs.openwrt_vermagic }}
+            vermagic: "95406503857f757c242adad1c14f7d60"
 
     env:
       OPENWRT_RELEASE: ${{ matrix.build_env.tag }}
       OPENWRT_ARCH: ${{ matrix.build_env.pkgarch }}
       OPENWRT_TARGET: ${{ matrix.build_env.target }}
       OPENWRT_SUBTARGET: ${{ matrix.build_env.subtarget }}
-      OPENWRT_VERMAGIC: ${{ matrix.build_env.vermagic }}
+      #OPENWRT_VERMAGIC: ${{ matrix.build_env.vermagic }}
+      OPENWRT_VERMAGIC: "95406503857f757c242adad1c14f7d60"
 
     steps:
       - name: Checkout amneziawg-openwrt
