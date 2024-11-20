@@ -167,7 +167,7 @@ build-kernel: $(OPENWRT_SRCDIR)/feeds.conf $(OPENWRT_SRCDIR)/.config ## Build Op
 	time -p make defconfig ; \
 	time -p make V=s target/linux/compile -i -j $(NPROC) ; \
 	#VERMAGIC=$$(cat ./build_dir/target-$(OPENWRT_ARCH)*/linux-$(OPENWRT_TARGET)_$(OPENWRT_SUBTARGET)/linux-*/.vermagic) ; \
-	VERMAGIC = 95406503857f757c242adad1c14f7d60 ; \
+	VERMAGIC = $$(95406503857f757c242adad1c14f7d60) ; \
 	echo "Vermagic: $${VERMAGIC}" ; \
 	#if [ "$(OPENWRT_VERMAGIC)" != "any" ] && [ "$${VERMAGIC}" != "$(OPENWRT_VERMAGIC)" ]; then \
 	if [ "$(OPENWRT_VERMAGIC)" != 95406503857f757c242adad1c14f7d60 ] && [ "$${VERMAGIC}" != "$(OPENWRT_VERMAGIC)" ]; then \
