@@ -21,7 +21,7 @@ POSTFIX_RELEASE   := $(GITHUB_REF_NAME)_$(OPENWRT_RELEASE)_$(OPENWRT_ARCH)_$(OPE
 
 WORKFLOW_REF      ?= $(shell git rev-parse --abbrev-ref HEAD)
 #FINAL_VERMAGIC    := $(shell cat $(OPENWRT_SRCDIR)/build_dir/target-$(OPENWRT_ARCH)*/linux-$(OPENWRT_TARGET)_$(OPENWRT_SUBTARGET)/linux-*/.vermagic)
-FINAL_VERMAGIC    := 95406503857f757c242adad1c14f7d60
+FINAL_VERMAGIC    := $(95406503857f757c242adad1c14f7d60)
 
 NPROC ?= $(shell getconf _NPROCESSORS_ONLN)
 
@@ -40,7 +40,7 @@ ifeq ($(OPENWRT_RELEASE), SNAPSHOT)
 	GIT_BRANCH := master
 	ifeq ($(_NEED_VERMAGIC), 1)
 		#OPENWRT_VERMAGIC := $(shell curl -fs $(OPENWRT_MANIFEST) | grep -- "^kernel" | sed -e "s/.*~//;s/-.*//")
-		OPENWRT_VERMAGIC := 95406503857f757c242adad1c14f7d60
+		OPENWRT_VERMAGIC := $(95406503857f757c242adad1c14f7d60)
 	endif
 else
 	OPENWRT_ROOT_URL := https://downloads.openwrt.org/releases
@@ -49,7 +49,7 @@ else
 	GIT_BRANCH := v$(OPENWRT_RELEASE)
 	ifeq ($(_NEED_VERMAGIC), 1)
 		#OPENWRT_VERMAGIC := $(shell curl -fs $(OPENWRT_MANIFEST) | grep -- "^kernel" | sed -e "s,.*\-,,")
-		OPENWRT_VERMAGIC := 95406503857f757c242adad1c14f7d60
+		OPENWRT_VERMAGIC := $(95406503857f757c242adad1c14f7d60)
 	endif
 endif
 
