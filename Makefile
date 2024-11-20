@@ -195,8 +195,8 @@ build-amneziawg: ## Build amneziawg-openwrt kernel module and packages
 	@{ \
 	set -ex ; \
 	cd $(OPENWRT_SRCDIR) ; \
-	#VERMAGIC=$$(cat ./build_dir/target-$(OPENWRT_ARCH)*/linux-$(OPENWRT_TARGET)_$(OPENWRT_SUBTARGET)/linux-*/.vermagic) ; \
-	VERMAGIC= 95406503857f757c242adad1c14f7d60 ; \
+	VERMAGIC=$$(cat ./build_dir/target-$(OPENWRT_ARCH)*/linux-$(OPENWRT_TARGET)_$(OPENWRT_SUBTARGET)/linux-*/.vermagic) ; \
+	#VERMAGIC= 95406503857f757c242adad1c14f7d60 ; \
 	echo "Vermagic: $${VERMAGIC}" ; \
 	if [ "$(OPENWRT_VERMAGIC)" != "any" ] && [ "$${VERMAGIC}" != "$(OPENWRT_VERMAGIC)" ]; then \
 		echo "Vermagic mismatch: $${VERMAGIC}, expected $(OPENWRT_VERMAGIC)" ; \
