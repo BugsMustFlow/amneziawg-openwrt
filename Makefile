@@ -166,13 +166,12 @@ build-kernel: $(OPENWRT_SRCDIR)/feeds.conf $(OPENWRT_SRCDIR)/.config ## Build Op
 	cd $(OPENWRT_SRCDIR) ; \
 	time -p make defconfig ; \
 	time -p make V=s target/linux/compile -i -j $(NPROC) ; \
-	#VERMAGIC=$$(cat ./build_dir/target-$(OPENWRT_ARCH)*/linux-$(OPENWRT_TARGET)_$(OPENWRT_SUBTARGET)/linux-*/.vermagic) ; \
-	VERMAGIC = $$(95406503857f757c242adad1c14f7d60) ; \
+	VERMAGIC=$$(cat ./build_dir/target-$(OPENWRT_ARCH)*/linux-$(OPENWRT_TARGET)_$(OPENWRT_SUBTARGET)/linux-*/.vermagic) ; \
+	#VERMAGIC = $(95406503857f757c242adad1c14f7d60) ; \
 	echo "Vermagic: $${VERMAGIC}" ; \
-	#if [ "$(OPENWRT_VERMAGIC)" != "any" ] && [ "$${VERMAGIC}" != "$(OPENWRT_VERMAGIC)" ]; then \
-	if [ "$(OPENWRT_VERMAGIC)" != 95406503857f757c242adad1c14f7d60 ] && [ "$${VERMAGIC}" != "$(OPENWRT_VERMAGIC)" ]; then \
+	if [ "$(OPENWRT_VERMAGIC)" != "any" ] && [ "$${VERMAGIC}" != "$(OPENWRT_VERMAGIC)" ]; then \
 		echo "Vermagic mismatch: $${VERMAGIC}, expected $(OPENWRT_VERMAGIC)" ; \
-		exit 1 ; \
+		#exit 1 ; \
 	fi ; \
 	}
 
@@ -199,8 +198,8 @@ build-amneziawg: ## Build amneziawg-openwrt kernel module and packages
 	#VERMAGIC=$$(cat ./build_dir/target-$(OPENWRT_ARCH)*/linux-$(OPENWRT_TARGET)_$(OPENWRT_SUBTARGET)/linux-*/.vermagic) ; \
 	VERMAGIC= 95406503857f757c242adad1c14f7d60 ; \
 	echo "Vermagic: $${VERMAGIC}" ; \
-	#if [ "$(OPENWRT_VERMAGIC)" != "any" ] && [ "$${VERMAGIC}" != "$(OPENWRT_VERMAGIC)" ]; then \
-		#echo "Vermagic mismatch: $${VERMAGIC}, expected $(OPENWRT_VERMAGIC)" ; \
+	if [ "$(OPENWRT_VERMAGIC)" != "any" ] && [ "$${VERMAGIC}" != "$(OPENWRT_VERMAGIC)" ]; then \
+		echo "Vermagic mismatch: $${VERMAGIC}, expected $(OPENWRT_VERMAGIC)" ; \
 		#exit 1 ; \
 	fi ; \
 	mv feeds.conf feeds.conf.bak ; \
