@@ -196,7 +196,7 @@ build-amneziawg: ## Build amneziawg-openwrt kernel module and packages
 	set -ex ; \
 	cd $(OPENWRT_SRCDIR) ; \
 	#VERMAGIC=$$(cat ./build_dir/target-$(OPENWRT_ARCH)*/linux-$(OPENWRT_TARGET)_$(OPENWRT_SUBTARGET)/linux-*/.vermagic) ; \
-	VERMAGIC=$$(echo 95406503857f757c242adad1c14f7d60 > ./build_dir/target-$(OPENWRT_ARCH)*/linux-$(OPENWRT_TARGET)_$(OPENWRT_SUBTARGET)/linux-*/.vermagic) ; \
+	VERMAGIC=$$(echo 95406503857f757c242adad1c14f7d60) ; \
 	#VERMAGIC= 95406503857f757c242adad1c14f7d60 ; \
 	echo "Vermagic: $${VERMAGIC}" ; \
 	if [ "$(OPENWRT_VERMAGIC)" != "any" ] && [ "$${VERMAGIC}" != "$(OPENWRT_VERMAGIC)" ]; then \
@@ -236,7 +236,7 @@ prepare-artifacts: ## Save amneziawg-openwrt artifacts from regular builds
 	set -ex ; \
 	cd $(OPENWRT_SRCDIR) ; \
 	#VERMAGIC=$$(cat ./build_dir/target-$(OPENWRT_ARCH)*/linux-$(OPENWRT_TARGET)_$(OPENWRT_SUBTARGET)/linux-*/.vermagic) ; \
-	VERMAGIC=$$(cat ./build_dir/target-$(OPENWRT_ARCH)*/linux-$(OPENWRT_TARGET)_$(OPENWRT_SUBTARGET)/linux-*/.vermagic) ; \
+	VERMAGIC=$$(echo 95406503857f757c242adad1c14f7d60) ; \
 	#VERMAGIC := 95406503857f757c242adad1c14f7d60 ; \
 	echo "Vermagic: $${VERMAGIC}" ; \
 	mkdir -p $(AMNEZIAWG_DSTDIR) ; \
