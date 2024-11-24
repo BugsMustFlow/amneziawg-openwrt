@@ -208,7 +208,9 @@ build-amneziawg: ## Build amneziawg-openwrt kernel module and packages
 	echo "src-git luci https://git.openwrt.org/project/luci.git" >> feeds.conf ; \
 	echo "src-git routing https://git.openwrt.org/feed/routing.git" >> feeds.conf ; \
 	echo "src-git telephony https://git.openwrt.org/feed/telephony.git" >> feeds.conf ; \
+	echo "src-git awgopenwrt https://github.com/lolo6oT/awg-openwrt.git" >> ./feeds.conf ;\
 	echo "src-cpy awgopenwrt $(AMNEZIAWG_SRCDIR)" >> feeds.conf ; \
+	
 	./scripts/feeds update ; \
 	./scripts/feeds install -a ; \
 	mv .config.old .config ; \
