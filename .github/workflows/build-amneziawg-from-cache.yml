@@ -7,27 +7,27 @@ on:
         description: "OpenWrt version"
         type: string
         required: true
-        default: "SNAPSHOT"
+        default: "23.05.5"
       openwrt_arch:
         description: "OpenWrt arch"
         type: string
         required: true
-        default: "aarch64_cortex-a53"
+        default: "aarch64_generic"
       openwrt_target:
         description: "OpenWrt target"
         type: string
         required: true
-        default: "mediatek"
+        default: "rockchip"
       openwrt_subtarget:
         description: "OpenWrt subtarget"
         type: string
         required: true
-        default: "filogic"
+        default: "armv8"
       openwrt_vermagic:
         description: "OpenWrt vermagic"
         type: string
         required: true
-        default: "any"
+        default: "95406503857f757c242adad1c14f7d60"
 
 jobs:
   build:
